@@ -7,8 +7,13 @@
 
 import UIKit
 
-class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, RequestManagerDelegate {
+    
+    var requestManager = RequestManager()
+    var articlesArray = [News]()
+    
+    var refreshControl = UIRefreshControl()
+    
     @IBOutlet var newsTable: UITableView!
     
     override func viewDidLoad() {
@@ -17,24 +22,52 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         newsTable.register(NewsCell.nib(), forCellReuseIdentifier: NewsCell.identifier)
         newsTable.delegate = self
         newsTable.dataSource = self
+        requestManager.delegate = self
+        requestManager.fetchData(withURL: requestUrl, pageNumber: pageNumber)
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing...")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        newsTable.addSubview(refreshControl)
     }
-
     
-// MARK: - TableView methods
+    
+    
+    @objc func refresh(_ sender: AnyObject) {
+        pageNumber = 1
+        viewDidLoad()
+        refreshControl.endRefreshing()
+    }
+    
+    
+    // MARK: - RequestManagerDelegate method
+    
+    func didUpdateData(_ requestManager: RequestManager, newsArray: [News]) {
+        self.articlesArray.removeAll()
+        DispatchQueue.main.async {
+            self.articlesArray = newsArray
+            self.newsTable.reloadData()
+        }
+    }
+    
+    
+    // MARK: - TableView methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        articlesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
-        cell.textLabel?.text = "Title"
+        cell.titleLabel.text = articlesArray[indexPath.row].title!
+        cell.autorLabel.text = articlesArray[indexPath.row].author ?? "Article from editor"
+        cell.timeLabel.text = articlesArray[indexPath.row].publishedAt!
+        cell.previewImage.load(url: ((articlesArray[indexPath.row].urlToImage) ?? deffiniteImageURL))
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        100
+        150
     }
-
+    
 }
 

@@ -8,33 +8,43 @@
 import UIKit
 
 
-struct RequestManager{
+protocol RequestManagerDelegate{
+    func didUpdateData(_ requestManager: RequestManager, newsArray: [News])
+}
+
+
+
+class RequestManager{
     
-    func fetchData(){
+    var delegate: RequestManagerDelegate?
+    
+    
+    func fetchData(withURL url: String, pageNumber: Int){
         
-        guard let url = URL(string: Utilities().URL) else {
+        let urlString = URL(string: url + String(pageNumber))
+        
+        guard let url = urlString else {
             return
         }
-        let params = "pageSize=15"
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = params.data(using: .utf8)
-        
+        let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil{
                 print(error.debugDescription)
                 return
             }else if data != nil{
-                let stringData = String(data: data!, encoding: .utf8)
-                print(stringData as! String)
+                do{
+                    let newsData = try JSONDecoder().decode(APIResponse<[News]>.self, from: data!)
+                    if newsData.status == "ok"{
+                        let articlesArray = newsData.articles!
+                        self.delegate?.didUpdateData(self, newsArray: articlesArray)
+                    }
+                }catch let error{
+                    print(error.localizedDescription)
+                }
             }
         }
         task.resume()
     }
-    
-    
-    
-    
-    
-    
 }
+
+

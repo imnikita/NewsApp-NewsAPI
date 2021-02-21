@@ -16,15 +16,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="390" height="105"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vmm-jU-web">
-                        <rect key="frame" x="20" y="12.5" width="80" height="80"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vmm-jU-web">
+                        <rect key="frame" x="20" y="-7.5" width="140" height="120"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="80" id="5dv-ee-pT5"/>
-                            <constraint firstAttribute="height" constant="80" id="VBx-f9-m17"/>
+                            <constraint firstAttribute="width" constant="140" id="5dv-ee-pT5"/>
+                            <constraint firstAttribute="height" constant="120" id="VBx-f9-m17"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzB-Md-hWa">
-                        <rect key="frame" x="110" y="10" width="270" height="20"/>
+                        <rect key="frame" x="170" y="10" width="210" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="zRG-mr-nLZ"/>
                         </constraints>
@@ -33,7 +33,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeF-Y9-uTR">
-                        <rect key="frame" x="110" y="75" width="270" height="20"/>
+                        <rect key="frame" x="170" y="75" width="210" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="eTz-b6-IfA"/>
                         </constraints>
@@ -42,7 +42,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXe-8i-RNP">
-                        <rect key="frame" x="110" y="30" width="270" height="45"/>
+                        <rect key="frame" x="170" y="30" width="210" height="45"/>
                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>

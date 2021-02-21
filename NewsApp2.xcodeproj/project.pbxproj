@@ -15,6 +15,8 @@
 		1108860C25E28F590041E714 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1108860A25E28F590041E714 /* LaunchScreen.storyboard */; };
 		116EFFA725E29329003072DE /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EFFA525E29329003072DE /* NewsCell.swift */; };
 		116EFFA825E29329003072DE /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116EFFA625E29329003072DE /* NewsCell.xib */; };
+		11C002FF25E2AFB100B9BC43 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C002FE25E2AFB100B9BC43 /* RequestManager.swift */; };
+		11C0030225E2B30000B9BC43 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C0030125E2B30000B9BC43 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		1108860D25E28F590041E714 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		116EFFA525E29329003072DE /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		116EFFA625E29329003072DE /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
+		11C002FE25E2AFB100B9BC43 /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		11C0030125E2B30000B9BC43 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,7 @@
 				1108860825E28F590041E714 /* Assets.xcassets */,
 				1108860A25E28F590041E714 /* LaunchScreen.storyboard */,
 				1108860D25E28F590041E714 /* Info.plist */,
+				11C0030125E2B30000B9BC43 /* Utilities.swift */,
 			);
 			path = NewsApp2;
 			sourceTree = "<group>";
@@ -93,6 +98,7 @@
 		1108861625E28F740041E714 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				11C002FE25E2AFB100B9BC43 /* RequestManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -168,6 +174,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11C0030225E2B30000B9BC43 /* Utilities.swift in Sources */,
+				11C002FF25E2AFB100B9BC43 /* RequestManager.swift in Sources */,
 				1108860425E28F550041E714 /* TimelineVC.swift in Sources */,
 				1108860025E28F550041E714 /* AppDelegate.swift in Sources */,
 				116EFFA725E29329003072DE /* NewsCell.swift in Sources */,

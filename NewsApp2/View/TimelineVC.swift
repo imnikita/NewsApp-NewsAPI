@@ -11,15 +11,17 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var newsTable: UITableView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         newsTable.register(NewsCell.nib(), forCellReuseIdentifier: NewsCell.identifier)
         newsTable.delegate = self
         newsTable.dataSource = self
-        
     }
 
+    
+// MARK: - TableView methods
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
     }

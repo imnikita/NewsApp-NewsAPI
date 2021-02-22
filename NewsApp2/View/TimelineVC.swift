@@ -9,6 +9,10 @@ import UIKit
 
 class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, RequestManagerDelegate {
     
+    
+    var currentResultsCount = 1
+    var totalResults = 1
+    
     var requestManager = RequestManager()
     var articlesArray = [News]()
     
@@ -46,6 +50,8 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         DispatchQueue.main.async {
             self.articlesArray = newsArray
             self.newsTable.reloadData()
+            self.currentResultsCount += self.articlesArray.count
+            print("in articles array now: \(self.articlesArray.count)")
         }
     }
     
@@ -53,16 +59,28 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     // MARK: - TableView methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        articlesArray.count
+            return articlesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if currentResultsCount < totalResults && indexPath.row == articlesArray.count - 1{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "loading")!
+            return cell
+        }
+
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
         cell.titleLabel.text = articlesArray[indexPath.row].title!
         cell.autorLabel.text = articlesArray[indexPath.row].author ?? "Article from editor"
         cell.timeLabel.text = articlesArray[indexPath.row].publishedAt!
         cell.previewImage.load(url: ((articlesArray[indexPath.row].urlToImage) ?? deffiniteImageURL))
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if currentResultsCount < totalResults && indexPath.row == articlesArray.count - 1{
+            pageNumber += 1
+            requestManager.fetchData(withURL: requestUrl, pageNumber: pageNumber)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

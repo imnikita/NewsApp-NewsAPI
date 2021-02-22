@@ -29,7 +29,6 @@ class NewsCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        previewImage.contentMode = .scaleToFit
         previewImage.layer.borderWidth = 1
         previewImage.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         previewImage.layer.cornerRadius = 5

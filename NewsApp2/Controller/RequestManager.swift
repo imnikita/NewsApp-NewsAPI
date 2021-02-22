@@ -10,19 +10,19 @@ import UIKit
 
 protocol RequestManagerDelegate{
     func didUpdateData(_ requestManager: RequestManager, newsArray: [News])
+    var totalResults: Int { get set }
+    var currentResultsCount: Int { get set }
 }
-
 
 
 class RequestManager{
     
     var delegate: RequestManagerDelegate?
     
-    
-    func fetchData(withURL url: String, pageNumber: Int){
+    func fetchData(withURL url: String, pageNumber: Int = 1){
         
         let urlString = URL(string: url + String(pageNumber))
-        
+        var articlesArray = [News]()
         guard let url = urlString else {
             return
         }
@@ -35,7 +35,10 @@ class RequestManager{
                 do{
                     let newsData = try JSONDecoder().decode(APIResponse<[News]>.self, from: data!)
                     if newsData.status == "ok"{
-                        let articlesArray = newsData.articles!
+//                        var articlesArray = [News]()
+                        articlesArray.append(contentsOf: newsData.articles!)
+                        print(articlesArray.count)
+                        self.delegate?.totalResults = newsData.totalResults ?? 1
                         self.delegate?.didUpdateData(self, newsArray: articlesArray)
                     }
                 }catch let error{

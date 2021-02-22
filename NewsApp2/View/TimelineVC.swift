@@ -51,6 +51,9 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             self.articlesArray = newsArray
             self.newsTable.reloadData()
             self.currentResultsCount += self.articlesArray.count
+            var trigger = 0
+            trigger += 1
+            print("didUpdateData TRIGGERED TIMES: \(trigger)")
             print("in articles array of didUpdateData now: \(self.articlesArray.count)")
             print("totalResult didUpdateData now: \(self.totalResults)")
             print("currentResult didUpdateData now: \(self.currentResultsCount)")
@@ -66,19 +69,20 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if currentResultsCount < totalResults && indexPath.row == articlesArray.count - 1{
-            print(currentResultsCount)
-            print(totalResults)
+            print("Current result when cell is triggered \(currentResultsCount)")
+            print("Current result when cell is triggered \(totalResults)")
             print("loading cell is triggered")
             let cell = tableView.dequeueReusableCell(withIdentifier: "loading")!
             return cell
+        }else{
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
+            cell.titleLabel.text = articlesArray[indexPath.row].title!
+            cell.autorLabel.text = articlesArray[indexPath.row].author ?? "Article from editor"
+            cell.timeLabel.text = articlesArray[indexPath.row].publishedAt!
+            cell.previewImage.load(url: ((articlesArray[indexPath.row].urlToImage) ?? deffiniteImageURL))
+            return cell
         }
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as! NewsCell
-        cell.titleLabel.text = articlesArray[indexPath.row].title!
-        cell.autorLabel.text = articlesArray[indexPath.row].author ?? "Article from editor"
-        cell.timeLabel.text = articlesArray[indexPath.row].publishedAt!
-        cell.previewImage.load(url: ((articlesArray[indexPath.row].urlToImage) ?? deffiniteImageURL))
-        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

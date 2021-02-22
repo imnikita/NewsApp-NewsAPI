@@ -19,10 +19,10 @@ class RequestManager{
     
     var delegate: RequestManagerDelegate?
     
-    func fetchData(withURL url: String, pageNumber: Int = 1){
+    func fetchData(withURL url: String, pageNumber: Int = 0, articles: [News] = [News]()){
         
         let urlString = URL(string: url + String(pageNumber))
-        var articlesArray = [News]()
+        var articlesArray = articles
         guard let url = urlString else {
             return
         }
@@ -35,10 +35,10 @@ class RequestManager{
                 do{
                     let newsData = try JSONDecoder().decode(APIResponse<[News]>.self, from: data!)
                     if newsData.status == "ok"{
-//                        var articlesArray = [News]()
                         articlesArray.append(contentsOf: newsData.articles!)
-                        print(articlesArray.count)
+                        print("articlesArray in fetchData method is \(articlesArray.count)")
                         self.delegate?.totalResults = newsData.totalResults ?? 1
+                        self.delegate?.currentResultsCount = newsData.articles?.count ?? 1
                         self.delegate?.didUpdateData(self, newsArray: articlesArray)
                     }
                 }catch let error{

@@ -27,7 +27,7 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         newsTable.delegate = self
         newsTable.dataSource = self
         requestManager.delegate = self
-        requestManager.fetchData(withURL: requestUrl, pageNumber: pageNumber)
+        requestManager.fetchData(withURL: requestUrl, pageNumber: pageNumber, articles: articlesArray)
         
         refreshControl.attributedTitle = NSAttributedString(string: "Refreshing...")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
@@ -37,9 +37,9 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     
     @objc func refresh(_ sender: AnyObject) {
-        pageNumber = 1
-        viewDidLoad()
-        refreshControl.endRefreshing()
+            pageNumber = 1
+            viewDidLoad()
+            refreshControl.endRefreshing()
     }
     
     
@@ -51,7 +51,9 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             self.articlesArray = newsArray
             self.newsTable.reloadData()
             self.currentResultsCount += self.articlesArray.count
-            print("in articles array now: \(self.articlesArray.count)")
+            print("in articles array of didUpdateData now: \(self.articlesArray.count)")
+            print("totalResult didUpdateData now: \(self.totalResults)")
+            print("currentResult didUpdateData now: \(self.currentResultsCount)")
         }
     }
     
@@ -64,6 +66,9 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if currentResultsCount < totalResults && indexPath.row == articlesArray.count - 1{
+            print(currentResultsCount)
+            print(totalResults)
+            print("loading cell is triggered")
             let cell = tableView.dequeueReusableCell(withIdentifier: "loading")!
             return cell
         }
@@ -79,7 +84,7 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if currentResultsCount < totalResults && indexPath.row == articlesArray.count - 1{
             pageNumber += 1
-            requestManager.fetchData(withURL: requestUrl, pageNumber: pageNumber)
+            requestManager.fetchData(withURL: requestUrl, pageNumber: pageNumber, articles: articlesArray)
         }
     }
     

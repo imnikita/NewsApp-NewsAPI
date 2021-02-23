@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, RequestManagerDelegate {
     
@@ -94,6 +95,13 @@ class TimelineVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let safeURL = articlesArray[indexPath.row].url{
+        let vc = SFSafariViewController(url: safeURL)
+            present(vc, animated: true, completion: nil)
+        }
     }
     
 }
